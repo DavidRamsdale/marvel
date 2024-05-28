@@ -21,7 +21,6 @@ const createLinks = (characters) => {
 };
 
 const Graph = ({ comicId, handleCharacterSelection }: GraphProps) => {
-  console.log("🚀 ~ Graph ~ comicId:", comicId);
   const { data, isLoading, error } = useQuery({
     queryKey: ["comicCharacters", comicId],
     queryFn: () => fetchComicCharacters(comicId),
@@ -31,7 +30,6 @@ const Graph = ({ comicId, handleCharacterSelection }: GraphProps) => {
   if (error) return "An error has occurred: " + error.message;
 
   const characters = data?.data?.results || [];
-  console.log("🚀 ~ Graph ~ characters:", characters);
   const formattedCharacters = characters?.map((character: any) => ({
     id: character.name,
     group: 1,
@@ -52,7 +50,6 @@ const Graph = ({ comicId, handleCharacterSelection }: GraphProps) => {
       graphData={graphData}
       nodeAutoColorBy="group"
       onNodeClick={(node) => {
-        console.log("🚀 ~ Graph ~ node:", node);
         handleCharacterSelection(node.characterid);
       }}
       width={800}

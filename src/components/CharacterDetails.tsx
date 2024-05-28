@@ -13,7 +13,6 @@ const CharacterDetails = ({ id }: { id: string }) => {
   const character = data?.data.results[0];
   if (!character) return "Character not found";
 
-  console.log("🚀 ~ CharacterDetails ~ character:", character);
   const thumbnail = `${character.thumbnail.path}.${character.thumbnail.extension}`;
 
   return (
