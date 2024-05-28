@@ -28,8 +28,31 @@ const fetchData = async (endpoint: string, params = {}) => {
   }
 };
 
+export const fetchCharacters = async () => {
+  const limit = 100;
+  // could do a first request to get the total number of characters
+  const totalCharacters = 1564;
+  const requests = [];
+
+  for (let offset = 0; offset < totalCharacters; offset += limit) {
+    requests.push(fetchData("characters", { limit, offset }));
+  }
+
+  const responses = await Promise.all(requests);
+  // Flatten the array of arrays into a single array
+  const allCharacters = [].concat(
+    ...responses.map((response) => response.data.results)
+  );
+
+  return allCharacters;
+};
+
 export const fetchComicCharacters = async (id: string) => {
   return fetchData(`comics/${id}/characters`);
+};
+
+export const fetchCharacter = async (id: string) => {
+  return fetchData(`characters/${id}`);
 };
 
 export const fetchComics = async ({ pageParam = 0 }) => {
